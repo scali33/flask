@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% block styles %}
+    
+    {% endblock %}
 </head>
 <body>
-<a href="{{url_for('home')}}">home</a>
-{%block content %}
+<a href="{{ url_for('home') }}">home</a>
+{% block content %}
 
 {% endblock %}
 </body>

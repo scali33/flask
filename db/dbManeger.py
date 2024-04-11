@@ -26,7 +26,11 @@ class DataBase:
             cur.execute('select Post_id,Name from Posts')
             res = cur.fetchall()
             return res
-    def save_post(self,text,post_id):
+    def save_post(self,text,post_id,post_title):
         with DataBaseConnection(DATA_BASE) as con:
             cur = con.cursor()
-            cur.execute('UPDATE POSTS set Post_content = ? WHERE Post_id = ?  ',(text,post_id))
+            cur.execute('UPDATE POSTS set Post_content = ?,Name=? WHERE Post_id = ?  ',(text,post_title,post_id))
+    def delete_post(self,post_id):
+        with DataBaseConnection(DATA_BASE) as con:
+            cur = con.cursor()
+            cur.execute('DELETE FROM POSTS WHERE Post_id = ?',(post_id,))

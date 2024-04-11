@@ -34,9 +34,16 @@ def edit_post(post_id):
         return render_template('edit.jinja2',post=post)
     elif request.method == 'POST':
         content = request.form.get('texto')
-        db.save_post(content,post_id)
+        title = request.form.get('title')
+        db.save_post(content,post_id,title)
         return redirect(url_for('poste',post_id = post_id))
-        
-
+    
+@app.route('/post/dell/<int:post_id>',methods=['GET'])
+def delet_post(post_id):
+    if not post_id:
+        return render_template('404.jinja2',message='Post to delete not found')
+    else:
+        db.delete_post(post_id)
+        return redirect(url_for('home'))
 if __name__ == '__main__':
      app.run(debug=True)

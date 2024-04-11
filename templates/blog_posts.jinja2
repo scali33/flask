@@ -1,8 +1,46 @@
-{%extends 'base.jinja2'%}
-{%block content%}
-<a href="{{url_for('edit_post',post_id=post[0])}}"> edit post</a>
-<h1>The post {{post[1]}}</h1>
-<p> has this content:  {{post[2]}}</p>
-<br>
-{%endblock%}
+{% extends 'base.jinja2' %}
 
+{% block styles %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    p {
+        color: #777;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <a href="{{ url_for('edit_post', post_id=post[0]) }}">Edit Post</a>
+    <h1>The post: {{ post[1] }}</h1>
+    <p>{{ post[2] }}</p>
+</div>
+{% endblock %}
