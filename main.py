@@ -4,13 +4,13 @@ app = Flask(__name__)
 
 
 db = DataBase()
+
 @app.route('/')
 def home():
     return render_template('home.jinja2',posts=db.post_lsit())
 
 @app.route('/post/<int:post_id>')
 def poste(post_id):
-    global posts
     post = db.retrive_one_post(post_id)
     if not post:
         return render_template('404.jinja2',message='a post with an id non existence')
@@ -25,5 +25,18 @@ def create():
         return redirect(url_for('poste',post_id=post_id))
     return render_template('create.jinja2')
 
+@app.route('/post/edit/<int:post_id>',methods=['GET','POST'])
+def edit_post(post_id):
+    post = db.retrive_one_post(post_id)
+    if not post:
+        return render_template('404.jinja2',message='a post with an id non existence')
+    if request.method == 'GET':
+        return render_template('edit.jinja2',post=post)
+    elif request.method == 'POST':
+        content = request.form.get('texto')
+        db.save_post(content,post_id)
+        return redirect(url_for('poste',post_id = post_id))
+        
+
 if __name__ == '__main__':
-    app.run(debug=True)
+     app.run(debug=True)

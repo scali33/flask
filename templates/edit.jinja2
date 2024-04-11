@@ -1,0 +1,11 @@
+{% extends 'base.jinja2'%}
+
+{%block content%}
+
+<h1>Post name: {{post[1]}}</h1>
+    <form action="/post/edit/{{post[0]}}" method="POST">
+    <textarea name="texto" rows="4" cols="50">{{post[2]}}</textarea>
+    <br>
+    <input type="Submit" value="Save">
+    </form>
+{%endblock%}

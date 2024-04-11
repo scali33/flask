@@ -17,7 +17,7 @@ class DataBase:
     def retrive_one_post(self,id) -> list:
         with DataBaseConnection(DATA_BASE) as con:
             cur = con.cursor()
-            cur.execute(f'SELECT Name,Post_content FROM POSTS where Post_id =? ',(id,))
+            cur.execute(f'SELECT Post_id,Name,Post_content FROM POSTS where Post_id =? ',(id,))
             res = cur.fetchone()
             return res
     def post_lsit(self):
@@ -26,3 +26,7 @@ class DataBase:
             cur.execute('select Post_id,Name from Posts')
             res = cur.fetchall()
             return res
+    def save_post(self,text,post_id):
+        with DataBaseConnection(DATA_BASE) as con:
+            cur = con.cursor()
+            cur.execute('UPDATE POSTS set Post_content = ? WHERE Post_id = ?  ',(text,post_id))
